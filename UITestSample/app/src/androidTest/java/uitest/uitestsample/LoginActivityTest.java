@@ -29,11 +29,9 @@ public class LoginActivityTest {
      * ユーザ名"user1", パスワード"password"でログインできることを確認
      */
     @Test
-    public void loninWithUser1() {
-        onView(withId(R.id.username)).perform(typeText("user1"));
-        onView(withId(R.id.password)).perform(typeText("password"));
-        onView(withId(R.id.login)).perform(click());
-        onView((withId(R.id.message))).check(matches(withText("Login succeeded")));
+    public void loginWithUser1() {
+        loginWith("user1", "password");
+        onView((withId(R.id.message))).check(matches(withText(LoginActivity_.LOGIN_MESSAGE)));
     }
 
     /**
@@ -41,6 +39,23 @@ public class LoginActivityTest {
      */
     @Test
     public void loginWithNewUser() {
+        String username = "newUser";
+        String password = "password";
 
+        onView(withId(R.id.new_account)).perform(click());
+        onView(withId(R.id.username)).perform(typeText(username));
+        onView(withId(R.id.password1)).perform(typeText(password));
+        onView(withId(R.id.password2)).perform(typeText(password));
+        onView(withId(R.id.mailaddress)).perform(typeText("newUser@gmail.com"));
+        onView(withId(R.id.register)).perform(click());
+
+        loginWith(username, password);
+        onView(withId(R.id.message)).check(matches(withText(LoginActivity_.LOGIN_MESSAGE)));
+    }
+
+    private void loginWith(String username, String password) {
+        onView(withId(R.id.username)).perform(typeText(username));
+        onView(withId(R.id.password)).perform(typeText(password));
+        onView(withId(R.id.login)).perform(click());
     }
 }

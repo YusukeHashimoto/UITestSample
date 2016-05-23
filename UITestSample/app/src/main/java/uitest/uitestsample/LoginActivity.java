@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText usernameArea;
     @ViewById(R.id.password)
     EditText passwordArea;
+    public static final String LOGIN_MESSAGE = "Login succeeded";
 
     @AfterViews
     public void init() {
